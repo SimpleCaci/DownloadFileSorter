@@ -1,47 +1,33 @@
 # Download File Sorter
 
-A lightweight Python command-line tool that organizes a folder into useful categories while preserving duplicate files.
+A Python command-line tool that sorts files into category folders. Duplicate names get numbered instead of overwritten; existing directories are left alone.
 
-## Tech stack
+## Run
 
-- Python 3.10+
-- `pathlib` for portable paths
-- `argparse` for the command-line interface
-- `shutil` for file moves
+Use Python 3.10+ from the repository root. No third-party packages are needed.
 
-## Features
-
-- Sorts images, documents, video, audio, archives, code, and other files.
-- Defaults to the current user's Downloads folder.
-- Accepts any source folder as an argument.
-- Provides a dry-run preview before files are moved.
-- Renames collisions instead of overwriting existing files.
-- Leaves existing directories untouched.
-
-## Usage
-
-Preview the default Downloads folder:
+Preview the current user's Downloads folder:
 
 ```bash
 python documentSorter.py --dry-run
 ```
 
-Sort a chosen folder:
+Preview a chosen folder, then remove `--dry-run` when the planned moves look right:
 
 ```bash
-python documentSorter.py "C:\path\to\folder"
+python documentSorter.py "C:\path\to\folder" --dry-run
 ```
 
-No third-party dependencies are required.
+Rules in `documentSorter.py` cover images, video, audio, documents, installers, archives, web files, calendars, code, and incomplete downloads. Unknown extensions go to `Misc`.
 
-## Status
+## Check changes
 
-Functional command-line utility. Start with `--dry-run` whenever testing new rules or a new folder.
+```bash
+python -m unittest -v
+```
 
-## Next steps
+The existing tests cover case-insensitive categories, collision naming, and dry-run preservation using temporary folders. GitHub Actions runs the same suite.
 
-- Add automated tests around category selection and collision handling.
-- Allow rules to be loaded from a configuration file.
-- Add an optional undo log.
+Useful next steps: test actual moves and repeated collisions, load custom rules from a file, and add an undo log.
 
 Built by [SimpleCaci](https://github.com/SimpleCaci).
